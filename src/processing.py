@@ -10,8 +10,8 @@ def filter_by_state(cards: list[dict], state: str = "EXECUTED") -> list[dict]:
 
 def sort_by_date(raw_data: list[dict], is_direction: bool = True) -> list[dict]:
     """Функция сортирует словари по дате
-    :data_input -входные данные(список словарей)
-    :directions - параметр сортировки
+    :raw_data -входные данные(список словарей)
+    :is_direction - параметр сортировки
     :return - отсортированнфй список словарей"""
     data_sort = sorted(raw_data, key=lambda x: x["date"], reverse=is_direction)
     return data_sort
