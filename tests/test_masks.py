@@ -1,6 +1,6 @@
-from src.masks import get_mask_account, get_mask_card_number
-
 import pytest
+
+from src.masks import get_mask_account, get_mask_card_number
 
 cases = [(1111111111111111, "1111 11** **** 1111"),
          (222222222222, "2222 22** 2222")]
@@ -19,7 +19,7 @@ def test_get_mask_card_number_negative(number_card_input: int) -> None:
 
 
 cases_account = [(123456789, "**6789"), (73654108430135874305, "**4305")]
-cases_account_negative = [(), ("fe4545432")]
+cases_account_negative = [(), ("fe4545432", )]
 
 
 @pytest.mark.parametrize("account_number_input, result", cases_account)
