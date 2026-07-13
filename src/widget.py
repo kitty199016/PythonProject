@@ -20,6 +20,9 @@ def mask_account_card(text: str) -> str | None:  # функция обрабат
 
 
 def get_date(iso_string: str) -> str:  # функция перевода даты в формат дд.мм.гггг
-    dt_obj = datetime.fromisoformat(iso_string)
-    formatted_date_only = dt_obj.date().strftime("%d.%m.%Y")
-    return formatted_date_only
+    try:
+        dt_obj = datetime.fromisoformat(iso_string)
+        formatted_date_only = dt_obj.date().strftime("%d.%m.%Y")
+        return formatted_date_only
+    except (ValueError, TypeError):
+        raise ValueError("Ошибка! Введенная строка не является корректной датой.")
