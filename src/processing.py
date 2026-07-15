@@ -1,17 +1,28 @@
+from datetime import datetime
+
 def filter_by_state(cards: list[dict], state: str = "EXECUTED") -> list[dict]:
     """Функция принимает список словарей и опционально значение
     для ключа state (по умолчанию 'EXECUTED').
     :cards - входные данные(список словарей)
     :state - сортировка по статусу
     return - новый список словарей"""
-    result = [i for i in cards if i["state"] == state]
+    result = [i for i in cards if i.get("state") == state]
     return result
 
 
+
 def sort_by_date(raw_data: list[dict], is_direction: bool = True) -> list[dict]:
-    """Функция сортирует словари по дате
-    :raw_data -входные данные(список словарей)
-    :is_direction - параметр сортировки
-    :return - отсортированнфй список словарей"""
-    data_sort = sorted(raw_data, key=lambda x: x["date"], reverse=is_direction)
-    return data_sort
+    """Сортирует список транзакций по ISO-дате.
+
+    Выбрасывает ValueError, если формат нарушен, или KeyError, если ключа нет.
+    """
+    # 1. Парсим даты. Если в данных будет строка типа 'сломано', datetime сам выдаст ValueError
+    validated_data = [
+        (datetime.fromisoformat(item["date"].strip()), item) for item in raw_data
+    ]
+
+    # 2. Сортируем кортежи по объектам datetime
+    validated_data.sort(key=lambda pair: pair[0], reverse=is_direction)
+
+    # 3. Возвращаем очищенный от служебных дат список словарей
+    return [item for _, item in validated_data]
