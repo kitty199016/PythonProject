@@ -1,4 +1,5 @@
 import pytest
+
 from src.processing import filter_by_state, sort_by_date
 
 cases_filter_by_state = [
@@ -117,6 +118,6 @@ def test_sort_by_date_positive(
 
 
 @pytest.mark.parametrize("invalid_data, expected_exception", cases_filter_by_state_negative)
-def test_sort_by_date_negative(invalid_data: list[dict], expected_exception) -> None:
+def test_sort_by_date_negative(invalid_data: list[dict], expected_exception: type[BaseException]) -> None:
     with pytest.raises(expected_exception):
         sort_by_date(invalid_data)

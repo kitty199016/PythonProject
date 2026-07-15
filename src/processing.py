@@ -1,5 +1,6 @@
 from datetime import datetime
 
+
 def filter_by_state(cards: list[dict], state: str = "EXECUTED") -> list[dict]:
     """Функция принимает список словарей и опционально значение
     для ключа state (по умолчанию 'EXECUTED').
@@ -10,19 +11,13 @@ def filter_by_state(cards: list[dict], state: str = "EXECUTED") -> list[dict]:
     return result
 
 
-
 def sort_by_date(raw_data: list[dict], is_direction: bool = True) -> list[dict]:
     """Сортирует список транзакций по ISO-дате.
 
     Выбрасывает ValueError, если формат нарушен, или KeyError, если ключа нет.
     """
-    # 1. Парсим даты. Если в данных будет строка типа 'сломано', datetime сам выдаст ValueError
-    validated_data = [
-        (datetime.fromisoformat(item["date"].strip()), item) for item in raw_data
-    ]
+    validated_data = [(datetime.fromisoformat(item["date"].strip()), item) for item in raw_data]
 
-    # 2. Сортируем кортежи по объектам datetime
     validated_data.sort(key=lambda pair: pair[0], reverse=is_direction)
 
-    # 3. Возвращаем очищенный от служебных дат список словарей
     return [item for _, item in validated_data]
