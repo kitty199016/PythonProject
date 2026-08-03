@@ -1,6 +1,6 @@
 import pytest
-from generators import transaction_descriptions
-from types import GeneratorType
+
+from src.generators import transaction_descriptions
 
 
 def test_empty_transactions_list():
@@ -55,10 +55,3 @@ def test_missing_or_empty_description(transaction_input, expected_output):
     """Проверка устойчивости функции, если описания нет или оно пустое."""
     result = list(transaction_descriptions(transaction_input))
     assert result == expected_output
-
-
-
-
-
-
-

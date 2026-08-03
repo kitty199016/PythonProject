@@ -1,8 +1,7 @@
-from typing import Iterator, Generator, Any
+from typing import Any, Generator, Iterator
 
 
-
-def filter_by_currency(transactions:dict, currency_code:str) -> Iterator:
+def filter_by_currency(transactions: dict, currency_code: str) -> Iterator:
     """
     Возвращает итератор с транзакциями, фильтруя их по заданному коду валюты.
     """
@@ -13,7 +12,8 @@ def filter_by_currency(transactions:dict, currency_code:str) -> Iterator:
         if currency_info.get("code") == currency_code:
             yield transaction
 
-def transaction_descriptions(transactions:dict) -> Generator[Any, Any, None]:
+
+def transaction_descriptions(transactions: dict) -> Generator[Any, Any, None]:
     """
     Генератор, который по очереди возвращает описание (description) каждой транзакции.
     """

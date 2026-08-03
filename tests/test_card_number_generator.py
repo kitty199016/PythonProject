@@ -1,4 +1,5 @@
 import pytest
+
 from src.generators import card_number_generator
 
 
@@ -11,7 +12,6 @@ def test_generator_values_in_range():
     expected_numbers = list(range(start, end + 1))
 
     assert extracted_numbers == expected_numbers
-
 
 
 def test_card_number_format():
@@ -29,7 +29,6 @@ def test_card_number_format():
             assert block.isdigit()
 
 
-
 @pytest.mark.parametrize("start, end", [
     (0, 0),  # Диапазон из одного нулевого элемента
     (9999999999999995, 9999999999999999),  # Максимальная граница для 16 знаков
@@ -45,7 +44,6 @@ def test_generator_boundary_values(start, end):
     # Проверка первого и последнего значения в выборке
     assert int(result[0].replace(" ", "")) == start
     assert int(result[-1].replace(" ", "")) == end
-
 
 
 def test_generator_termination_and_empty_range():
@@ -66,6 +64,3 @@ def test_generator_is_exhausted():
     # Третий вызов обязан завершить генератор
     with pytest.raises(StopIteration):
         next(gen)
-
-
-

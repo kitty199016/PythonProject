@@ -1,6 +1,8 @@
-import pytest
 from collections.abc import Iterator
-from generators import filter_by_currency
+
+import pytest
+
+from src.generators import filter_by_currency
 
 
 @pytest.fixture
