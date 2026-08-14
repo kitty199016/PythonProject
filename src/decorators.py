@@ -28,7 +28,7 @@ def _make_wrapper(func, filename):
             return result
         except Exception as e:
             out.write(f"Ошибка в функции '{func.__name__}'!\n")
-            out.write(f"Тип ошибки: {type(e).__name__}\n")
+            out.write(f"Ти  п ошибки: {type(e).__name__}\n")
             out.write(f"Входные параметры: args={args}, kwargs={kwargs}\n")
             raise  # Пробрасываем ошибку дальше
         finally:
