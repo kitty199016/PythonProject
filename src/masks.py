@@ -11,6 +11,7 @@ def get_mask_card_number(number_card_input: int) -> str:
     else:
         raise ValueError("Некорректный номер карты")
 
+
 def get_mask_account(account_number_input: int) -> str:  # функция редактирует номер счета по маске
     account_number = str(account_number_input)
     if account_number.isdigit() and len(account_number) > 0:

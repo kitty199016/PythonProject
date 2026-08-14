@@ -2,6 +2,7 @@ import pytest
 
 from src.masks import get_mask_account, get_mask_card_number
 
+
 @pytest.fixture
 def card_positive_cases() -> list[tuple[int, str]]:
     return [
@@ -23,6 +24,7 @@ def card_negative_type_cases() -> list[tuple[str]]:
     return [
         ("",),
     ]
+
 
 def test_get_mask_card_number_positive(card_positive_cases: list[tuple[int, str]]) -> None:
     for number_card_input, result in card_positive_cases:
