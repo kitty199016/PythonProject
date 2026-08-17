@@ -45,20 +45,3 @@ def get_transaction_amount_in_rub(transaction: Dict[str, Any]) -> float:
 
     # 4. Если передана любая другая валюта, кроме RUB, USD, EUR
     raise ValueError(f"Неподдерживаемая валюта транзакции: {currency}")
-
-a =   {
-    "id": 207126257,
-    "state": "EXECUTED",
-    "date": "2019-07-15T11:47:40.496961",
-    "operationAmount": {
-      "amount": "92688.46",
-      "currency": {
-        "name": "USD",
-        "code": "USD"
-      }
-    },
-    "description": "Открытие вклада",
-    "to": "Счет 35737585785074382265"
-  }
-
-print(get_transaction_amount_in_rub(a))
