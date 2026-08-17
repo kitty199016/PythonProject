@@ -2,7 +2,6 @@ import json
 import os
 from typing import Any, Dict, List
 
-
 def transaction(file_path: str = "../data/operations.json") -> List[Dict[str, Any]]:
     """Загружает данные о финансовых транзакциях из JSON-файла.
 

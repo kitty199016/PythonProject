@@ -1,46 +1,64 @@
 import os
 import requests
+from typing import Dict, Any
 
 API_KEY = os.getenv("EXCHANGE_RATES_API_KEY", "7gvRsOeJkOYDhbYXibHoRUeLsRBQVAcS")
-BASE_URL = "https://api.apilayer.com/exchangerates_data"
 
 
-def convert_to_rub(amount: float, currency: str) -> float:
+def get_transaction_amount_in_rub(transaction: Dict[str, Any]) -> float:
     """
-    Конвертирует указанную сумму из USD или EUR в RUB с помощью Exchange Rates Data API.
+    Принимает транзакцию, конвертирует сумму в рубли (float) с использованием Exchange Rates Data API,
+    если валюта операции — USD или EUR. Если валюта RUB, возвращает сумму без запросов к API.
     """
-    currency = currency.upper()
-
-    # Если валюта уже рубли, конвертация не требуется
+    # 1. Извлекаем сумму и валюту из словаря транзакции
+    to_currency = "RUB"
+    operation_amount: Dict[str, Any] = transaction.get("operationAmount", None)
+    if operation_amount:
+        amount = float(operation_amount.get("amount", 0.0))
+        currency_db = operation_amount.get("currency", {})
+        currency = currency_db.get("code", "RUB")
+    else:
+        raise ValueError("Неправильная структура данных")
+    # 2. Если транзакция уже в рублях, возвращаем сумму сразу
     if currency == "RUB":
-        return float(amount)
+        return amount
 
-    if currency not in ["USD", "EUR"]:
-        raise ValueError(f"Неподдерживаемая валюта для конвертации: {currency}")
+    # 3. Если транзакция в USD или EUR, делаем запрос к внешнему API
+    if currency in ["USD", "EUR"]:
+        url = f"https://api.apilayer.com/exchangerates_data/convert?to={to_currency}&from={currency}&amount={amount}"
+        headers = {"apikey": API_KEY}
+        payload = {}
+        try:
+            response = requests.request("GET", url, headers=headers, data=payload)
+            response.raise_for_status()  # Вызовет ошибку, если HTTP-статус не 200
 
-    # Настройка заголовков для авторизации в API
-    headers = {
-        "apikey": API_KEY
-    }
+            data = response.json()
 
-    # Параметры запроса для эндпоинта конвертации
-    params = {
-        "from": currency,
-        "to": "RUB",
-        "amount": amount
-    }
+            if data.get("success"):
+                return float(data["result"])
+            else:
+                error_msg = data.get("error", {}).get("info", "Неизвестная ошибка API")
+                raise Exception(f"Ошибка API: {error_msg}")
 
-    try:
-        response = requests.get(f"{BASE_URL}/convert", headers=headers, params=params)
-        response.raise_for_status()  # Генерирует исключение при HTTP-ошибках
+        except requests.exceptions.RequestException as e:
+            raise ConnectionError(f"Ошибка сети при обращении к API курсов валют: {e}")
 
-        data = response.json()
+    # 4. Если передана любая другая валюта, кроме RUB, USD, EUR
+    raise ValueError(f"Неподдерживаемая валюта транзакции: {currency}")
 
-        if data.get("success"):
-            return float(data["result"])
-        else:
-            raise Exception(f"Ошибка API: {data.get('error', {}).get('info', 'Неизвестная ошибка')}")
+a =   {
+    "id": 207126257,
+    "state": "EXECUTED",
+    "date": "2019-07-15T11:47:40.496961",
+    "operationAmount": {
+      "amount": "92688.46",
+      "currency": {
+        "name": "USD",
+        "code": "USD"
+      }
+    },
+    "description": "Открытие вклада",
+    "to": "Счет 35737585785074382265"
+  }
 
-    except requests.exceptions.RequestException as e:
-        print(f"Ошибка при подключении к Exchange Rates Data API: {e}")
-        raise
+print(get_transaction_amount_in_rub(a))
