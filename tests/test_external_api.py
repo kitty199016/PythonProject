@@ -122,13 +122,3 @@ def test_network_connection_error(mocker):
 
     with pytest.raises(ConnectionError):
         get_transaction_amount_in_rub(transaction)
-
-
-
-
-
-
-
-
-
-

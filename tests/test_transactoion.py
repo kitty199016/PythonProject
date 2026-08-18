@@ -1,6 +1,5 @@
 import json
-import pytest
-from utils import transaction  # Замените your_module на имя вашего файла с функцией
+from utils import transaction
 
 
 def test_transaction_success(tmp_path):
