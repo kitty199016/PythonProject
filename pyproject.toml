@@ -7,6 +7,9 @@ authors = [
 ]
 requires-python = "^3.14"
 dependencies = [
+    "requests (>=2.34.2,<3.0.0)",
+    "dotenv (>=0.9.9,<0.10.0)",
+    "python-dotenv (>=1.2.3,<2.0.0)"
 ]
 
 
