@@ -14,7 +14,7 @@ LOG_FILE_PATH = os.path.join(LOGS_DIR, "transactions.log")
 
 # Конфигурация логирования
 logging.basicConfig(
-    level=logging.INFO,
+    level=logging.DEBUG,
     # Формат: Время - Имя модуля - Уровень - Сообщение
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     # Перезапись файла при каждом запуске приложения

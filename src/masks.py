@@ -9,7 +9,7 @@ os.makedirs(LOGS_DIR, exist_ok=True)
 
 # Инициализация конфигурации логирования
 logging.basicConfig(
-    level=logging.INFO,
+    level=logging.DEBUG,
     # Формат: Метка времени - Название модуля - Уровень серьезности - Сообщение
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     # Перезапись файла при каждом запуске приложения
