@@ -24,6 +24,8 @@ logging.basicConfig(
 )
 
 logger = logging.getLogger(__name__)
+
+
 def transaction(file_path: str = "../data/operations.json") -> List[Dict[str, Any]]:
     """Принимает путь к файлу и возвращает список словарей с транзакциями из JSON-файла.
 
