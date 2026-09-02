@@ -36,9 +36,9 @@ def _normalize_transaction_structure(op: dict) -> dict:
 
 def _step_select_file() -> list:
     """Шаг 1: Консольное меню выбора и чтения файла данных."""
-    json_path = os.path.join("data", "operations.json")
-    csv_path = os.path.join("data", "transactions.csv")
-    xlsx_path = os.path.join("data", "transactions_excel.xlsx")
+    json_path = os.path.join("../data", "operations.json")
+    csv_path = os.path.join("../data", "transactions.csv")
+    xlsx_path = os.path.join("../data", "transactions_excel.xlsx")
 
     while True:
         choice = input("Пользователь: ").strip()

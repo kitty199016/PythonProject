@@ -18,7 +18,7 @@ def read_csv(file_path: str = "../data/transactions.csv") -> List[Dict[str, str]
     try:
         with open(file_path, mode="r", encoding="utf-8") as file:
             # DictReader автоматически использует первую строку CSV как ключи для словарей
-            csv_reader = csv.DictReader(file)
+            csv_reader = csv.DictReader(file, delimiter=";")
 
             for row in csv_reader:
                 transactions.append(dict(row))
