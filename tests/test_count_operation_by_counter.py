@@ -1,7 +1,7 @@
-from collections import Counter
 import pytest
 
 from search_data import count_operations_by_counter
+
 
 @pytest.fixture
 def base_operations():

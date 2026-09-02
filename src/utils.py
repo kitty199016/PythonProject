@@ -58,4 +58,3 @@ def transaction(file_path: str = "../data/operations.json") -> List[Dict[str, An
         return []
 
     return []
-
