@@ -1,7 +1,7 @@
 import json
+import logging
 import os
 from typing import Any, Dict, List
-import logging
 
 # Определение корня проекта
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))

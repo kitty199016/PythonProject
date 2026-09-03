@@ -1,10 +1,12 @@
+from unittest.mock import Mock
+
 import pytest
 import requests
-from unittest.mock import Mock
+
 from external_api import get_transaction_amount_in_rub  # Замените на ваше имя модуля
 
-
 # --- 1. Тесты для успешных сценариев (Happy Paths) ---
+
 
 def test_get_transaction_amount_in_rub_success():
     """Проверка работы, если валюта уже RUB (API не должно вызываться)."""
